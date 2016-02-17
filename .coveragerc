@@ -1,0 +1,3 @@
+# configuration for coverage.py
+[run]
+source = dlmanager

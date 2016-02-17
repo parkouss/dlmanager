@@ -1,0 +1,6 @@
+-e .
+mock
+pytest
+pytest-mock
+flake8
+coverage
