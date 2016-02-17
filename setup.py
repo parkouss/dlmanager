@@ -44,9 +44,11 @@ def version():
 setup(
     name="dlmanager",
     version=version(),
-    description="download manager based on requests",
+    description="download manager library",
+    long_description=read("README.rst"),
     author="Julien Pagès",
     author_email="j.parkouss@gmail.com",
+    url="http://github.com/parkouss/dlmanager",
     license="GPL/LGPL",
     install_requires=parse_requirements(read("requirements.txt")),
     cmdclass={'test': PyTest},
