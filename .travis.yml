@@ -8,7 +8,12 @@ python:
   - "3.5"
 
 # command to install dependencies
-install: "pip install -U -r test-requirements.txt"
+install:
+  - pip install -U -r test-requirements.txt
+  - pip install codecov
 
 # command to run tests
-script: python check.py
+script: python check.py -C
+
+after_success:
+  - codecov

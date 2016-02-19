@@ -4,6 +4,9 @@
 .. image:: https://travis-ci.org/parkouss/dlmanager.svg?branch=master
     :target: https://travis-ci.org/parkouss/dlmanager
 
+.. image:: https://codecov.io/github/parkouss/dlmanager/coverage.svg?branch=master
+    :target: https://codecov.io/github/parkouss/dlmanager?branch=master
+
 dlmanager
 =========
 
