@@ -52,8 +52,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'dlmanager'
-copyright = '2016, Julien Pagès'
-author = 'Julien Pagès'
+copyright = u'2016, Julien Pagès'
+author = u'Julien Pagès'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
