@@ -13,7 +13,7 @@ from dlmanager.persist_limit import PersistLimit
 
 
 class DownloadInterrupt(Exception):
-    pass
+    "Raised when a download is interrupted."
 
 
 class Download(object):
@@ -29,6 +29,8 @@ class Download(object):
     If a download fail or is canceled, the temporary dest is removed from
     the disk.
 
+    Usually, Downloads are created by using :meth:`DownloadManager.download`.
+
     :param url: the url of the file to download
     :param dest: the local file path destination
     :param finished_callback: a callback that will be called in the thread
@@ -36,16 +38,16 @@ class Download(object):
                               instance as a parameter.
     :param chunk_size: size of the chunk that will be read. The thread can
                         not be stopped while we are reading that chunk size.
-    :param session: a requests.Session or the requests module that will do
-                    do the real downloading work.
+    :param session: a requests.Session instance that will do do the real
+                    downloading work. If None, `requests` module is used.
     :param progress: A callable to report the progress (default to None).
                      see :meth:`set_progress`.
     """
     def __init__(self, url, dest, finished_callback=None,
-                 chunk_size=16 * 1024, session=requests, progress=None):
+                 chunk_size=16 * 1024, session=None, progress=None):
         self.thread = threading.Thread(
             target=self._download,
-            args=(url, dest, finished_callback, chunk_size, session)
+            args=(url, dest, finished_callback, chunk_size, session or requests)
         )
         self._lock = threading.Lock()
         self.__url = url
@@ -192,10 +194,7 @@ class DownloadManager(object):
     a given directory. It will download a file only if a given filename
     is not already there.
 
-    Downloadmanager itself is not thread safe, and must not be shared
-    between threads.
-
-    Note that backgound downloads needs to be stopped. For example, if
+    Note that background downloads needs to be stopped. For example, if
     you have an exception while a download is occuring, python will only
     exit when the download will finish. To get rid of that, there is a
     possible idiom: ::
@@ -216,7 +215,7 @@ class DownloadManager(object):
 
     :param destdir: a directory where files are downloaded. It will be created
                     if it does not exists.
-    :param session: a requests session
+    :param session: a requests session. If None, one will be created for you.
     :param persist_limit: an instance of :class:`PersistLimit`, to allow
                           limiting the size of the download dir. Defaults
                           to None, meaning no limit.
@@ -261,11 +260,17 @@ class DownloadManager(object):
 
     def download(self, url, fname=None, progress=None):
         """
-        Returns a started download instance, or None if fname is already
-        present in destdir.
+        Returns a started :class:`Download` instance, or None if fname is
+        already present in destdir.
 
         if a download is already running for the given fname, it is just
         returned. Else the download is created, started and returned.
+
+        :param url: url of the file to download.
+        :param fname: name to give for the downloaded file. If None, it will
+                      be the name extracted in the url.
+        :param progress: a callable to report the download progress, or None.
+                         See :meth:`Download.set_progress`.
         """
         if fname is None:
             fname = urlparse(url).path.split('/')[-1]
@@ -293,10 +298,23 @@ class DownloadManager(object):
             self._download_started(download)
             return download
 
-    def _download_started(self, _):
+    def _download_started(self, dl):
+        """
+        Useful when sub-classing. Report the start event of a download.
+
+        :param dl: The :class:`Download` instance.
+        """
         pass
 
     def _download_finished(self, dl):
+        """
+        Useful when sub-classing. Report the end of a download.
+
+        Note that this is executed in the download thread. Also, you should
+        make sure to call the base implementation.
+
+        :param dl: The :class:`Download` instance.
+        """
         with self._lock:
             dest = dl.get_dest()
             del self._downloads[dest]

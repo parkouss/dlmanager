@@ -18,7 +18,7 @@ class PersistLimit(object):
     The access time of a file is used to determine the oldests, e.g. the
     last time a file was read.
 
-    :param size_limit: the size limit in bytes.
+    :param size_limit: the size limit in bytes. A value of 0 means no limit.
     :param file_limit: even if the size limit is reached, this force
                        to keep at least *file_limit* files.
     """

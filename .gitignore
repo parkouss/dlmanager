@@ -4,3 +4,5 @@
 htmlcov/
 */__pycache__/
 *.pyc
+dist/
+doc/_build/
