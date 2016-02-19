@@ -1,3 +1,9 @@
+.. image:: https://badge.fury.io/py/dlmanager.svg
+    :target: https://pypi.python.org/pypi/dlmanager
+
+.. image:: https://travis-ci.org/parkouss/dlmanager.svg?branch=master
+    :target: https://travis-ci.org/parkouss/dlmanager
+
 dlmanager
 =========
 

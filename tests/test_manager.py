@@ -1,4 +1,7 @@
-import unittest
+try:
+    import unittest2 as unittest  # python < 2.7 compat
+except ImportError:
+    import unittest
 import tempfile
 import shutil
 import os
