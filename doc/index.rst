@@ -6,6 +6,9 @@
 Welcome to dlmanager's documentation!
 =====================================
 
+**dlmanager** is a Python 2 and 3 download manager library. It is hosted
+`on github <https://github.com/parkouss/dlmanager>`_.
+
 Contents:
 
 .. toctree::
