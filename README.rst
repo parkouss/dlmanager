@@ -1,6 +1,10 @@
 .. image:: https://badge.fury.io/py/dlmanager.svg
     :target: https://pypi.python.org/pypi/dlmanager
 
+.. image:: https://readthedocs.org/projects/dlmanager/badge/?version=latest
+    :target: http://dlmanager.readthedocs.org/en/latest/?badge=latest
+    :alt: Documentation Status
+
 .. image:: https://travis-ci.org/parkouss/dlmanager.svg?branch=master
     :target: https://travis-ci.org/parkouss/dlmanager
 
