@@ -18,7 +18,7 @@ Example
   from dlmanager import DownloadManager, PersistLimit
 
   manager = DownloadManager(
-      "~/dlmanager-destir",
+      "dlmanager-destir",
       persist_limit=PersistLimit(
           size_limit=1073741824,  #  1 GB max
           file_limit=10,  # force to keep 10 files even if size_limit is reached
