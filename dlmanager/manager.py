@@ -47,7 +47,8 @@ class Download(object):
                  chunk_size=16 * 1024, session=None, progress=None):
         self.thread = threading.Thread(
             target=self._download,
-            args=(url, dest, finished_callback, chunk_size, session or requests)
+            args=(url, dest, finished_callback, chunk_size,
+                  session or requests)
         )
         self._lock = threading.Lock()
         self.__url = url
